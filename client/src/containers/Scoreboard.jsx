@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 const Scoreboard = ({ userScore }) => {
   const [scores, setScores] = useState([]);
 
+  console.log(scores);
+
   useEffect(() => {
     try {
       const scoreboard = JSON.parse(localStorage.getItem('scoreboard'));
@@ -25,9 +27,9 @@ const Scoreboard = ({ userScore }) => {
 
   return (
     <ul>
-      <h1>Leaderboard</h1>
+      <h1>Other people scores</h1>
       {scores?.map((score) => (
-        <li>
+        <li key={score.name}>
           {score.name} <span>{score.score}</span>
         </li>
       ))}

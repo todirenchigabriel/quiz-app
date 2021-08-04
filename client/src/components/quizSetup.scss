@@ -1,0 +1,61 @@
+.quizSetup {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 5px;
+  display: inline-block;
+  box-shadow: 0px 2px 10px #a4a7ce;
+
+  .quizInfo {
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .input {
+    padding: 4px;
+    width: 200px;
+  }
+
+  .quizSetupGroup {
+    margin: 16px 0;
+
+    & label {
+      display: block;
+      font-size: 16px;
+    }
+
+    & input {
+      cursor: pointer;
+      font-size: 14px;
+    }
+  }
+
+  .buttons {
+    margin-top: 48px;
+
+    .confirmButton {
+      border-radius: 5px;
+      border: 1px solid #10124a;
+      padding: 8px 16px;
+      margin-right: 24px;
+      color: #fff;
+      background-color: #10124a;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .cancelButton {
+      border: 1px solid #a4a7ce;
+      border-radius: 5px;
+      padding: 8px 16px;
+      margin-right: 16px;
+      background-color: #fff;
+      color: #10124a;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

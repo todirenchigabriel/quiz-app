@@ -6,12 +6,7 @@ import Quiz from './containers/Quiz';
 import Scoreboard from './containers/Scoreboard';
 
 const App = () => {
-  const [quizConfig, setQuizConfig] = useState({
-    amount: 10,
-    difficulty: 'Any',
-    type: 'Any',
-    name: `user ${Math.round(Math.random() * 1000000)}`,
-  });
+  const [quizConfig, setQuizConfig] = useState(null);
   const [userScore, setUserScore] = useState(null);
 
   return (
@@ -27,7 +22,11 @@ const App = () => {
           <Route
             exact
             path='/quiz'
-            render={() => <Quiz {...quizConfig} setUserScore={setUserScore} />}
+            render={() =>
+              quizConfig ? (
+                <Quiz {...quizConfig} setUserScore={setUserScore} />
+              ) : null
+            }
           />
           <Route
             exact

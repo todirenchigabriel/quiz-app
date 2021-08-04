@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import classNames from 'classnames';
 import { shuffleArray } from '../utils';
+import './question.scss';
 
 const Question = ({
   correctAnswer,
@@ -8,20 +10,27 @@ const Question = ({
   onSelectAnswer,
   questionIndex,
 }) => {
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const answers = shuffleArray([correctAnswer, ...incorectAnswers]);
 
   return (
-    <div>
-      <div>{question}</div>
-      {answers?.map((answer) => (
-        <button
-          onClick={() => {
-            onSelectAnswer(answer, questionIndex);
-          }}
-          key={answer}>
-          {answer}
-        </button>
-      ))}
+    <div className='question'>
+      <div className='questionText'>Q: {question}</div>
+      <div className='questionAnswers'>
+        {answers?.map((answer) => (
+          <button
+            className={classNames('questionAnswer', {
+              selectedAnswer: answer === selectedAnswer,
+            })}
+            onClick={() => {
+              setSelectedAnswer(answer);
+              onSelectAnswer(answer, questionIndex);
+            }}
+            key={answer}>
+            {answer}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './quizSetup.scss';
 
 const QuizSetupForm = ({ onSubmit, onCancel }) => {
   const [amount, setAmount] = useState(10);
@@ -62,15 +63,20 @@ const QuizSetupForm = ({ onSubmit, onCancel }) => {
   };
 
   return (
-    <div>
-      <div>Lets configure a few things first</div>
+    <div className='quizSetup'>
+      <div className='quizInfo'>Lets configure a few things first...</div>
       {nameError && <div>Please fix the errors before submiting</div>}
-      <div>
+      <div className='quizSetupGroup'>
         <label>Your name</label>
-        <input type='text' value={name} onChange={onChangeName} />
+        <input
+          className='input'
+          type='text'
+          value={name}
+          onChange={onChangeName}
+        />
         {nameError && <span style={{ color: 'red' }}>{nameError}</span>}
       </div>
-      <div>
+      <div className='quizSetupGroup'>
         <label>Number of questions</label>
         <input
           type='radio'
@@ -97,7 +103,7 @@ const QuizSetupForm = ({ onSubmit, onCancel }) => {
         />{' '}
         20
       </div>
-      <div>
+      <div className='quizSetupGroup'>
         <label>Difficulty</label>
         <input
           type='radio'
@@ -132,7 +138,7 @@ const QuizSetupForm = ({ onSubmit, onCancel }) => {
         />
         Hard
       </div>
-      <div onChange={onChangeQuestionType}>
+      <div className='quizSetupGroup'>
         <label>Question Type</label>
         <input
           type='radio'
@@ -159,8 +165,14 @@ const QuizSetupForm = ({ onSubmit, onCancel }) => {
         />{' '}
         True/False
       </div>
-      <button onClick={handleSubmit}>Submit</button>
-      <button onClick={onCancel}>Cancel</button>
+      <div className='buttons'>
+        <button className='confirmButton' onClick={handleSubmit}>
+          Submit
+        </button>
+        <button className='cancelButton' onClick={onCancel}>
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

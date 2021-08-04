@@ -5,6 +5,8 @@ import Question from '../components/Question';
 import Modal from '../components/Modal';
 import { getRequestUrl } from '../utils';
 
+import './quiz.scss';
+
 const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
   let history = useHistory();
 
@@ -121,25 +123,41 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
   return (
     <div>
       <h1>Quiz App</h1>
-      {questions.length > 0 && renderQuestion()}
+      <div className='questionnaire'>
+        <div>
+          {questions.length > 0 && renderQuestion()}
+          {currentQuestion !== 0 && (
+            <button className='navigationButton' onClick={onPreviousQuestion}>
+              {'< '} Previous Question
+            </button>
+          )}
 
-      <p>
-        <button onClick={onPreviousQuestion}>Previous Question</button>
-        <button onClick={onNextQuestion}>Next Question</button>
+          {currentQuestion !== questions.length - 1 && (
+            <button className='navigationButton' onClick={onNextQuestion}>
+              Next Question {' >'}
+            </button>
+          )}
 
-        {currentQuestion === questions.length - 1 && (
-          <button onClick={() => setConfirmModalVisible(true)}>Submit</button>
-        )}
-      </p>
+          {currentQuestion === questions.length - 1 && (
+            <button
+              className='submitButton'
+              onClick={() => setConfirmModalVisible(true)}>
+              Submit
+            </button>
+          )}
+        </div>
 
-      <ul>
-        <h3>Jump to question</h3>
-        {questions.map((_, idx) => (
-          <li key={idx} onClick={() => setCurrentQuestion(idx)}>
-            Question {idx + 1}
-          </li>
-        ))}
-      </ul>
+        <div className='tableOfContents'>
+          <div className='tableOfContentsTitle'>Jump to question</div>
+          <ul className='tableOfContentsList'>
+            {questions.map((_, idx) => (
+              <li key={idx} onClick={() => setCurrentQuestion(idx)}>
+                Question {idx + 1}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
 
       <Modal
         isOpen={confirmModalVisible}
