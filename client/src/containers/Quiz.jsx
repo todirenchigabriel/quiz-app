@@ -161,12 +161,12 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
           You can navigate between the questions by using the Next/Previous
           question buttons or the Jump to question section.
         </div>
-        {currentQuestion === questions.length - 1 && (
-          <div>
-            Don't forget to <strong>Submit</strong>
-          </div>
-        )}
       </div>
+      {currentQuestion === questions.length - 1 && (
+        <div className='additionalInfo'>
+          Don't forget to <strong>Submit</strong>
+        </div>
+      )}
       <div className='questionnaire'>
         <div>
           {questions.length > 0 && renderQuestion()}
