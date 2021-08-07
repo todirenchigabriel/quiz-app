@@ -31,7 +31,9 @@ const App = () => {
           <Route
             exact
             path='/scoreboard'
-            render={() => <Scoreboard userScore={userScore} />}
+            render={() => (
+              <Scoreboard userScore={userScore} setUserScore={setUserScore} />
+            )}
           />
         </Switch>
       </div>

@@ -1,0 +1,23 @@
+.scoreboardPage {
+  padding: 16px;
+
+  .scoreboardList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .listTitle {
+      & span {
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+
+    & li {
+      display: flex;
+      justify-content: space-between;
+      max-width: 300px;
+      margin: 8px 0;
+    }
+  }
+}

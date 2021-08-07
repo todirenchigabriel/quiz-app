@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import Loader from 'react-loader-spinner';
 import Question from '../components/Question';
 import Modal from '../components/Modal';
 import { getRequestUrl } from '../utils';
@@ -21,27 +21,31 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const requestURL = getRequestUrl(amount, difficulty, type);
+      try {
+        const requestURL = getRequestUrl(amount, difficulty, type);
+        setIsLoading(true);
+        const response = await fetch(requestURL);
+        const data = await response.json();
 
-      setIsLoading(true);
-      const response = await axios.get(requestURL);
-      if (response?.status === 200) {
-        const results = response?.data?.results || [];
-        setQuestions(results);
+        if (data?.results?.length) {
+          const results = data?.results || [];
+          setQuestions(results);
 
-        const answers = results.reduce((acc, cv, index) => {
-          acc[index] = {
-            correctAnswer: cv.correct_answer,
-            userAnswer: '',
-          };
+          const answers = results.reduce((acc, cv, index) => {
+            acc[index] = {
+              correctAnswer: cv.correct_answer,
+              userAnswer: '',
+            };
 
-          return acc;
-        }, {});
+            return acc;
+          }, {});
 
-        setAnswers(answers);
-      } else {
+          setAnswers(answers);
+        }
+      } catch (error) {
         setHasError(true);
       }
+
       setIsLoading(false);
     };
 
@@ -58,6 +62,10 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
     };
 
     setAnswers(newAnswers);
+
+    if (currentQuestion !== questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    }
   };
 
   const onPreviousQuestion = () => {
@@ -103,6 +111,7 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
 
     return (
       <Question
+        key={correct_answer}
         correctAnswer={correct_answer}
         incorectAnswers={incorrect_answers}
         question={question}
@@ -113,28 +122,58 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
   };
 
   if (hasError) {
-    return <div>There's been an error.</div>;
+    return (
+      <div className='quizPage'>
+        <div className='container'>
+          <div className='errorMessage'>
+            There's been an error. Please try again.
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className='quizPage'>
+        <div className='container'>
+          <Loader
+            type='Oval'
+            color='#10124a'
+            height={100}
+            width={100}
+            timeout={3000} //3 secs
+          />
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div>
-      <h1>Quiz App</h1>
+    <div className='quizPage'>
+      <h1>Question {currentQuestion + 1}</h1>
+      <div className='additionalInfo'>
+        <div>
+          Selecting an answer will automatically redirect you to the next
+          question.
+        </div>
+        <div>
+          You can navigate between the questions by using the Next/Previous
+          question buttons or the Jump to question section.
+        </div>
+      </div>
       <div className='questionnaire'>
         <div>
           {questions.length > 0 && renderQuestion()}
           {currentQuestion !== 0 && (
             <button className='navigationButton' onClick={onPreviousQuestion}>
-              {'< '} Previous Question
+              Previous Question
             </button>
           )}
 
           {currentQuestion !== questions.length - 1 && (
             <button className='navigationButton' onClick={onNextQuestion}>
-              Next Question {' >'}
+              Next Question
             </button>
           )}
 
@@ -175,11 +214,13 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
                 You answered{' '}
                 {questions.length - getUnansweredQuestions().length} questions
               </div>
-              <div>
-                You may want to cancel the submission and answer the following
-                questions too:
-                {getUnansweredQuestions().join()}
-              </div>
+              {getUnansweredQuestions().length && (
+                <div>
+                  You may want to cancel the submission and answer the following
+                  questions too:
+                  {getUnansweredQuestions().join()}
+                </div>
+              )}
             </div>
           )}
         </div>

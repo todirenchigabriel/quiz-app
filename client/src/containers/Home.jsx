@@ -14,7 +14,7 @@ const Home = ({ setQuizConfig }) => {
   };
 
   return (
-    <div>
+    <div className='homepage'>
       <h1>Welcome to the Quiz App! </h1>
       {!formVisible && (
         <button className='startButton' onClick={() => setFormVisible(true)}>

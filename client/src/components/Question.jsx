@@ -10,7 +10,6 @@ const Question = ({
   onSelectAnswer,
   questionIndex,
 }) => {
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const answers = shuffleArray([correctAnswer, ...incorectAnswers]);
 
   return (
@@ -19,11 +18,8 @@ const Question = ({
       <div className='questionAnswers'>
         {answers?.map((answer) => (
           <button
-            className={classNames('questionAnswer', {
-              selectedAnswer: answer === selectedAnswer,
-            })}
+            className='questionAnswer'
             onClick={() => {
-              setSelectedAnswer(answer);
               onSelectAnswer(answer, questionIndex);
             }}
             key={answer}>

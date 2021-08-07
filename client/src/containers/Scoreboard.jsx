@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import './scoreboard.scss';
 
-const Scoreboard = ({ userScore }) => {
+const Scoreboard = ({ userScore, setUserScore }) => {
   const [scores, setScores] = useState([]);
-
-  console.log(scores);
 
   useEffect(() => {
     try {
@@ -22,18 +21,25 @@ const Scoreboard = ({ userScore }) => {
       } else {
         setScores(scoreboard);
       }
+
+      setUserScore(null);
     } catch (error) {}
   }, []);
 
   return (
-    <ul>
-      <h1>Other people scores</h1>
-      {scores?.map((score) => (
-        <li key={score.name}>
-          {score.name} <span>{score.score}</span>
+    <div className='scoreboardPage'>
+      <h1>Other people's score</h1>
+      <ul className='scoreboardList'>
+        <li className='listTitle'>
+          <span>Username</span> <span>Score</span>
         </li>
-      ))}
-    </ul>
+        {scores?.map((score) => (
+          <li key={score.name}>
+            {score.name} <span>{score.score}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

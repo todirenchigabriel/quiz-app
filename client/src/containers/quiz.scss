@@ -1,55 +1,90 @@
-.questionnaire {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.quizPage {
+  padding: 16px;
 
-  .tableOfContents {
-    margin-left: 16px;
-    .tableOfContentsTitle {
-      font-weight: 600;
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+
+    .errorMessage {
+      font-size: 20px;
+      font-weight: bold;
+      color: #004085;
+    }
+  }
+
+  .questionnaire {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .tableOfContents {
+      margin-left: 16px;
+      background: #fafafa;
+      padding: 16px;
+      border-radius: 5px;
+
+      .tableOfContentsTitle {
+        font-weight: bold;
+      }
+
+      .tableOfContentsList {
+        list-style: none;
+        padding: 0;
+
+        & li {
+          cursor: pointer;
+          margin: 4px 0;
+          padding: 4px;
+          transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          min-width: 150px;
+
+          &:hover {
+            border-radius: 5px;
+            background-color: #cce5ff;
+            color: #004085;
+          }
+
+          &::before {
+            content: '> ';
+          }
+        }
+      }
     }
 
-    .tableOfContentsList {
-      list-style: none;
-      padding: 0;
+    .navigationButton {
+      cursor: pointer;
+      border: none;
+      margin: 8px 24px 8px 0;
+      padding: 8px 24px;
+      background-color: #fff;
+      color: #10124a;
+      font-weight: bold;
+    }
 
-      & li {
-        cursor: pointer;
-        margin: 4px 0;
-        padding: 4px;
-        transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        min-width: 150px;
+    .submitButton {
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 8px 24px 8px 0;
+      padding: 8px 24px;
+      background-color: #fff;
+      color: #10124a;
+      border: 1px solid #10124a;
+      transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-        &:hover {
-          border-radius: 5px;
-          background-color: #10124a;
-          color: #fff;
-        }
-
-        &::before {
-          content: '> ';
-        }
+      &:hover {
+        background-color: #10124a;
+        color: #fff;
       }
     }
   }
 
-  .navigationButton {
-    cursor: pointer;
-    border: none;
-    margin: 8px 24px 8px 0;
-    padding: 8px 24px;
-    background-color: #fff;
-    color: #10124a;
-    font-weight: bold;
-  }
-
-  .submitButton {
-    cursor: pointer;
+  .additionalInfo {
+    max-width: 1000px;
+    padding: 16px;
     border-radius: 5px;
-    border: none;
-    margin: 8px 24px 8px 0;
-    padding: 8px 24px;
-    background-color: #10124a;
-    color: #fff;
+    background-color: #fff3cd;
+    color: #856404;
   }
 }

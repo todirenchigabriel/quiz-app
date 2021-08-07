@@ -65,7 +65,11 @@ const QuizSetupForm = ({ onSubmit, onCancel }) => {
   return (
     <div className='quizSetup'>
       <div className='quizInfo'>Lets configure a few things first...</div>
-      {nameError && <div>Please fix the errors before submiting</div>}
+      {nameError && (
+        <div className='errorMessage'>
+          Please fix the errors before submiting
+        </div>
+      )}
       <div className='quizSetupGroup'>
         <label>Your name</label>
         <input
@@ -74,7 +78,7 @@ const QuizSetupForm = ({ onSubmit, onCancel }) => {
           value={name}
           onChange={onChangeName}
         />
-        {nameError && <span style={{ color: 'red' }}>{nameError}</span>}
+        {nameError && <div className='errorMessage'>{nameError}</div>}
       </div>
       <div className='quizSetupGroup'>
         <label>Number of questions</label>
@@ -166,11 +170,11 @@ const QuizSetupForm = ({ onSubmit, onCancel }) => {
         True/False
       </div>
       <div className='buttons'>
-        <button className='confirmButton' onClick={handleSubmit}>
-          Submit
-        </button>
         <button className='cancelButton' onClick={onCancel}>
           Cancel
+        </button>
+        <button className='confirmButton' onClick={handleSubmit}>
+          Submit
         </button>
       </div>
     </div>
