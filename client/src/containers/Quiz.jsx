@@ -214,7 +214,7 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
                 You answered{' '}
                 {questions.length - getUnansweredQuestions().length} questions
               </div>
-              {getUnansweredQuestions().length && (
+              {getUnansweredQuestions().length > 0 && (
                 <div>
                   You may want to cancel the submission and answer the following
                   questions too:
