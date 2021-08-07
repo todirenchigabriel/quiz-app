@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import Question from '../components/Question';
 import Modal from '../components/Modal';
+import Timer from '../components/Timer';
 import { getRequestUrl } from '../utils';
 
 import './quiz.scss';
@@ -18,6 +19,7 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
   const [score, setScore] = useState(0);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [resultsModalVisible, setResultsModalVisible] = useState(false);
+  const [endQuiz, setEndQuiz] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -152,6 +154,13 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
   return (
     <div className='quizPage'>
       <h1>Question {currentQuestion + 1}</h1>
+      <Timer
+        onTimeUp={() => {
+          calculateScore();
+          setEndQuiz(true);
+        }}
+        timeLimit={120}
+      />
       <div className='additionalInfo'>
         <div>
           Selecting an answer will automatically redirect you to the next
@@ -247,6 +256,25 @@ const Quiz = ({ amount, difficulty, type, name, setUserScore }) => {
           history.push('/scoreboard');
         }}>
         <div>Your score is {score}</div>
+        <div>Do you want to save your score?</div>
+      </Modal>
+
+      <Modal
+        isOpen={endQuiz}
+        title="Time's up!"
+        onCancel={() => {
+          setEndQuiz(false);
+          history.push('/');
+        }}
+        onConfirm={() => {
+          setEndQuiz(false);
+          setUserScore({
+            name,
+            score,
+          });
+          history.push('/scoreboard');
+        }}>
+        <div>Your time is up. The score you obtained so far is {score}.</div>
         <div>Do you want to save your score?</div>
       </Modal>
     </div>

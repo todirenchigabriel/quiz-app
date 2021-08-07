@@ -22,3 +22,7 @@ export const getRequestUrl = (amount, difficulty, type) => {
 
   return requestUrl;
 };
+
+export const getTimePassed = (timePassed) => {
+  return `${Math.floor(timePassed / 60)}:${timePassed % 60} minutes`;
+};
