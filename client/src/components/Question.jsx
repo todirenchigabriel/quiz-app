@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
+import { decode } from 'html-entities';
 import { shuffleArray } from '../utils';
 import './question.scss';
 
@@ -14,7 +14,7 @@ const Question = ({
 
   return (
     <div className='question'>
-      <div className='questionText'>Q: {question}</div>
+      <div className='questionText'>Q: {decode(question)}</div>
       <div className='questionAnswers'>
         {answers?.map((answer) => (
           <button
@@ -23,7 +23,7 @@ const Question = ({
               onSelectAnswer(answer, questionIndex);
             }}
             key={answer}>
-            {answer}
+            {decode(answer)}
           </button>
         ))}
       </div>

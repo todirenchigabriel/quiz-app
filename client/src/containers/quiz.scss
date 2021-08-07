@@ -86,5 +86,9 @@
     border-radius: 5px;
     background-color: #fff3cd;
     color: #856404;
+
+    & div {
+      margin: 4px 0;
+    }
   }
 }
